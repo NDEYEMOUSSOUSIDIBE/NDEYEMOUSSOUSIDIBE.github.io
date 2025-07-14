@@ -2,18 +2,89 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Portfolio de Ndeye Moussou Sidibé</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; background-color: #f4f4f4; }
-    header { background-color: #222; color: #fff; padding: 40px 20px; text-align: center; }
-    nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
-    section { padding: 40px 20px; max-width: 900px; margin: auto; }
-    h2 { color: #333; }
-    .project { margin-bottom: 20px; padding: 15px; background: white; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
-    footer { text-align: center; padding: 20px; background-color: #222; color: white; }
-    .btn { background-color: #007BFF; color: white; padding: 10px 20px; border: none; border-radius: 5px; text-decoration: none; }
-    .btn:hover { background-color: #0056b3; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f4f4f4;
+      color: #333;
+      scroll-behavior: smooth;
+    }
+    header {
+      background-color: #222;
+      color: #fff;
+      padding: 30px 20px;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    nav a:hover, nav a.active {
+      color: #007BFF;
+    }
+    section {
+      max-width: 900px;
+      margin: 30px auto;
+      background: white;
+      padding: 30px 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: none;
+    }
+    section.active {
+      display: block;
+    }
+    h2 {
+      color: #007BFF;
+      margin-bottom: 20px;
+    }
+    .project {
+      margin-bottom: 20px;
+      padding: 15px;
+      background: #fafafa;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #222;
+      color: white;
+      margin-top: 40px;
+      font-size: 0.9rem;
+    }
+    .btn {
+      background-color: #007BFF;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+    /* Responsive */
+    @media (max-width: 600px) {
+      header, section {
+        padding: 20px 10px;
+      }
+      nav a {
+        display: block;
+        margin: 10px 0;
+      }
+    }
   </style>
 </head>
 <body>
@@ -22,14 +93,14 @@
   <h1>Bienvenue sur mon Portfolio</h1>
   <p>Je suis Ndeye Moussou Sidibé, titulaire d'un MASTER 2 en SYSTEMES RESEAUX ET TELECOMMUNICATIONS</p>
   <nav>
-    <a href="#about">À propos</a>
-    <a href="#projects">Projets</a>
-    <a href="#cv">CV</a>
-    <a href="#contact">Contact</a>
+    <a href="#" data-target="about" class="active">À propos</a>
+    <a href="#" data-target="projects">Projets</a>
+    <a href="#" data-target="cv">CV</a>
+    <a href="#" data-target="contact">Contact</a>
   </nav>
 </header>
 
-<section id="about">
+<section id="about" class="active">
   <h2>À propos</h2>
   <p>Diplômée d’un Master 2 en Réseaux et Télécommunications, je suis passionnée par la fibre optique (GPON, FTTH). Je conçois, configure et déploie des réseaux performants.</p>
 </section>
@@ -48,7 +119,7 @@
 
 <section id="cv">
   <h2>Mon CV</h2>
- <a class="btn" href="CV_2025-07-09_NDEYE%20MOUSSOU_SIDIBE.pdf" target="_blank">Télécharger mon CV</a>
+  <a class="btn" href="CV_2025-07-09_NDEYE%20MOUSSOU_SIDIBE.pdf" target="_blank" rel="noopener noreferrer">Télécharger mon CV</a>
   <p>Compétences :</p>
   <ul>
     <li>FTTH, GPON, OLT, ONT</li>
@@ -59,14 +130,38 @@
 
 <section id="contact">
   <h2>Contact</h2>
-  <p>📧 Email : ndeyemoussou035@gmail.com</p>
+  <p>📧 Email : <a href="mailto:ndeyemoussou035@gmail.com">ndeyemoussou035@gmail.com</a></p>
   <p>📞 Téléphone : +221 78 139 75 04</p>
-  <p>🌍 LinkedIn : <a href="https://www.linkedin.com/feed/" target="_blank">linkedin.com/in/tonprofil</a></p>
+  <p>🌍 LinkedIn : <a href="https://www.linkedin.com/feed/" target="_blank" rel="noopener noreferrer">linkedin.com/in/tonprofil</a></p>
 </section>
 
 <footer>
   &copy; 2025 Ndeye Moussou Sidibé - Tous droits réservés
 </footer>
 
+<script>
+  // Gestion simple des onglets
+  const navLinks = document.querySelectorAll('nav a');
+  const sections = document.querySelectorAll('section');
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const targetId = link.getAttribute('data-target');
+
+      // Désactive tous les liens
+      navLinks.forEach(l => l.classList.remove('active'));
+      // Masque toutes les sections
+      sections.forEach(s => s.classList.remove('active'));
+
+      // Active le lien cliqué
+      link.classList.add('active');
+      // Affiche la section correspondante
+      document.getElementById(targetId).classList.add('active');
+    });
+  });
+</script>
+
 </body>
 </html>
+
